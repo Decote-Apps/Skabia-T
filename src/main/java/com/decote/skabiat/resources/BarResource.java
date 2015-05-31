@@ -33,6 +33,7 @@ public class BarResource {
     }
     
     @PUT
+    @Path ("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveBar(Bar bar){
     	BarFinderService.getInstance().addBar(bar);
