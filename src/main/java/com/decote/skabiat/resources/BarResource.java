@@ -34,7 +34,7 @@ public class BarResource {
     
     @PUT
     @Path ("/")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String saveBar(Bar bar){
     	BarFinderService.getInstance().addBar(bar);
