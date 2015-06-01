@@ -34,10 +34,11 @@ public class BarResource {
     
     @PUT
     @Path ("/")
+    @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response saveBar(Bar bar){
+    public String saveBar(Bar bar){
     	BarFinderService.getInstance().addBar(bar);
-    	return Response.status(200).build();
+    	return "Todo Piola";
     			
     }
 }
