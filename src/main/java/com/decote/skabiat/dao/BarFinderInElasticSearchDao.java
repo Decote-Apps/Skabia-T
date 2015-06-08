@@ -24,7 +24,7 @@ public class BarFinderInElasticSearchDao implements IBarFinderDao {
 //								.parseInt(ResourceBundle.getBundle(
 //										"application.properties").getString(
 //										"elasticsearch.host.port"))));
-						"localhost",9300));
+						"55v6pmjm:ywviwla5nbkpok83@yew-1188452.us-east-1.bonsai.io",443));
 	}
 
 	@Override
