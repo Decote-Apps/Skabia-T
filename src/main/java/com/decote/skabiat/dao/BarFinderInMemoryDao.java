@@ -14,7 +14,7 @@ public class BarFinderInMemoryDao implements IBarFinderDao {
 	}
 
 	@Override
-	public Bar getBar(String id) {
+	public Bar getBarById(String id) {
 		Bar bar = findBar(id);
 //		System.out.println(bar);
 		return bar;
