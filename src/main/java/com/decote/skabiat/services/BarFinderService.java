@@ -27,5 +27,9 @@ public class BarFinderService {
 	public void addBar(Bar bar){
 		repository.addBar(bar);
 	}
+	
+	public void deleteBar(String id){
+		repository.deleteBar(id);
+	}
 
 }

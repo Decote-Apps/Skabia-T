@@ -2,6 +2,8 @@ package com.decote.skabiat.dao;
 
 import java.util.ResourceBundle;
 
+import org.elasticsearch.action.delete.DeleteRequestBuilder;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
@@ -29,16 +31,9 @@ public class BarFinderInElasticSearchDao implements IBarFinderDao {
 
 	@Override
 	public Bar getBarById(String id) {
-		GetResponse response = client.prepareGet("bar", "bar", "1").execute()
+		GetResponse response = client.prepareGet("bar", "bar", id).execute()
 				.actionGet();
 		Bar wantedBar = SkabiatUtils.getBarFromMap(response.getSource());
-		// SearchRequestBuilder builder = client.prepareGet();
-		// builder.setSearchType(SearchType.QUERY_AND_FETCH);
-		// builder.setQuery(QueryBuilders.matchQuery("id", id));
-		// SearchResponse response = builder.execute().actionGet();
-		// response.getHits().getAt(0).;
-		// Bar wantedBar;
-		client.close();
 		return wantedBar;
 	}
 
@@ -46,10 +41,17 @@ public class BarFinderInElasticSearchDao implements IBarFinderDao {
 	public void addBar(Bar bar) {
 		IndexResponse response;
 
-		IndexRequestBuilder requestBuilder = client.prepareIndex("bar", "bar");
+		IndexRequestBuilder requestBuilder = client.prepareIndex("bar", "bar", bar.getId());
 		requestBuilder.setSource(SkabiatUtils.getMapFromBar(bar));
-		requestBuilder.execute().actionGet();
+		response = requestBuilder.execute().actionGet();
 
+	}
+
+	@Override
+	public void deleteBar(String id) {
+		DeleteResponse response = client.prepareDelete("bar", "bar", id).execute().actionGet();
+		
+		
 	}
 
 }

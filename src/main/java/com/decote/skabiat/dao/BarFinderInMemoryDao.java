@@ -36,4 +36,10 @@ public class BarFinderInMemoryDao implements IBarFinderDao {
 		
 	}
 
+	@Override
+	public void deleteBar(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

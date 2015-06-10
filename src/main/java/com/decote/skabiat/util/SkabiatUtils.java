@@ -1,5 +1,6 @@
 package com.decote.skabiat.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,9 +13,9 @@ public class SkabiatUtils {
 		barToReturn.setId((String)map.get("id"));
 		barToReturn.setName((String)map.get("name"));
 		barToReturn.setDescription((String)map.get("description"));
-		String [] location = (String [])map.get("location");
-		barToReturn.setLongitude(location[0]);
-		barToReturn.setLatitude(location[1]);
+		ArrayList<String> location = (ArrayList<String>)map.get("location");
+		barToReturn.setLongitude(location.get(0));
+		barToReturn.setLatitude(location.get(1));
 		return barToReturn;
 	}
 	
