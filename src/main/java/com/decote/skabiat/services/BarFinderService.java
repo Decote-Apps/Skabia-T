@@ -1,5 +1,6 @@
 package com.decote.skabiat.services;
 
+import com.decote.skabiat.exception.UserNotFoundException;
 import com.decote.skabiat.model.Bar;
 import com.decote.skabiat.repo.BarFinderRepository;
 
@@ -20,7 +21,7 @@ public class BarFinderService {
 		return instance;
 	}
 	
-	public Bar getBar(String id){
+	public Bar getBar(String id) throws UserNotFoundException{
 		return repository.getBar(id);
 	}
 	

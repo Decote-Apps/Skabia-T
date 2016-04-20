@@ -1,8 +1,7 @@
 package com.decote.skabiat.dao;
 
-import java.util.ResourceBundle;
+import java.util.Map;
 
-import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
@@ -11,6 +10,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
+import com.decote.skabiat.exception.UserNotFoundException;
 import com.decote.skabiat.model.Bar;
 import com.decote.skabiat.util.SkabiatUtils;
 
@@ -30,21 +30,24 @@ public class BarFinderInElasticSearchDao implements IBarFinderDao {
 	}
 
 	@Override
-	public Bar getBarById(String id) {
+	public Bar getBarById(String id) throws UserNotFoundException {
 		GetResponse response = client.prepareGet("bar", "bar", id).execute()
 				.actionGet();
-		Bar wantedBar = SkabiatUtils.getBarFromMap(response.getSource());
+		Map <String, Object> barMap = response.getSource();
+		if (barMap == null){
+			throw new UserNotFoundException ();
+		}
+		Bar wantedBar = SkabiatUtils.getBarFromMap(barMap);
 		return wantedBar;
 	}
 
 	@Override
 	public void addBar(Bar bar) {
 		IndexResponse response;
-
 		IndexRequestBuilder requestBuilder = client.prepareIndex("bar", "bar", bar.getId());
 		requestBuilder.setSource(SkabiatUtils.getMapFromBar(bar));
 		response = requestBuilder.execute().actionGet();
-
+		
 	}
 
 	@Override
